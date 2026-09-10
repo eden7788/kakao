@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>관리자 초대 가이드</title>
+<style>
+  :root{
+    --bg:#EEF0F5;
+    --surface:#FFFFFF;
+    --ink:#14161B;
+    --ink-soft:#6A6F7A;
+    --line:#E4E6EC;
+    --accent:#2F5CFF;
+    --accent-soft:#EAF0FF;
+    --senior:#2F9E6E;
+    --senior-soft:#E9F8F0;
+    --junior:#B98900;
+    --junior-soft:#FBF3DE;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    font-family:-apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:560px;
+    margin:0 auto;
+    padding:32px 20px 64px;
+  }
+  header.hero{
+    margin-bottom:28px;
+  }
+  .eyebrow-line{
+    width:36px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:14px;
+  }
+  h1{
+    font-size:26px;
+    line-height:1.3;
+    letter-spacing:-0.02em;
+    margin:0 0 8px;
+    font-weight:700;
+  }
+  .hero p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:14.5px;
+    line-height:1.6;
+  }
+
+  /* tabs */
+  .tabs{
+    display:flex;
+    background:var(--surface);
+    border-radius:14px;
+    padding:4px;
+    margin:24px 0 28px;
+    border:1px solid var(--line);
+  }
+  .tab-btn{
+    flex:1;
+    border:none;
+    background:transparent;
+    padding:12px 8px;
+    font-size:14.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    border-radius:10px;
+    cursor:pointer;
+    transition:background .15s ease, color .15s ease;
+  }
+  .tab-btn.active{
+    background:var(--ink);
+    color:#fff;
+  }
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .section-label{
+    font-size:13px;
+    font-weight:700;
+    color:var(--accent);
+    margin:0 0 14px;
+  }
+
+  /* step timeline */
+  .steps{
+    position:relative;
+    padding-left:34px;
+  }
+  .steps::before{
+    content:"";
+    position:absolute;
+    left:13px;
+    top:8px;
+    bottom:8px;
+    width:2px;
+    background:var(--line);
+  }
+  .step{
+    position:relative;
+    margin-bottom:28px;
+  }
+  .step:last-child{margin-bottom:0;}
+  .step-num{
+    position:absolute;
+    left:-34px;
+    top:0;
+    width:28px;
+    height:28px;
+    border-radius:50%;
+    background:var(--ink);
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .step-title{
+    font-size:16px;
+    font-weight:700;
+    margin:2px 0 6px;
+  }
+  .step-desc{
+    font-size:14px;
+    color:var(--ink-soft);
+    line-height:1.6;
+    margin:0 0 14px;
+  }
+  .shot{
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:10px;
+    display:inline-block;
+  }
+  .shot img{
+    display:block;
+    width:100%;
+    max-width:220px;
+    border-radius:10px;
+  }
+
+  .dl-links{
+    list-style:none;
+    margin:0 0 14px;
+    padding:0;
+    font-size:13.5px;
+    line-height:1.8;
+  }
+  .dl-links li{color:var(--ink-soft);}
+  .dl-links a{
+    color:var(--accent);
+    text-decoration:none;
+    word-break:break-all;
+  }
+  .dl-links a:hover{text-decoration:underline;}
+
+  .note{
+    margin-top:14px;
+    border-radius:12px;
+    padding:14px 16px;
+    font-size:13.5px;
+    line-height:1.6;
+  }
+  .note-title{
+    font-weight:700;
+    font-size:13.5px;
+    margin-bottom:6px;
+    display:flex;
+    gap:8px;
+    align-items:center;
+  }
+  .badge{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:999px;
+  }
+  .badge.senior{background:var(--senior-soft);color:var(--senior);}
+  .badge.junior{background:var(--junior-soft);color:var(--junior);}
+
+  .callout{
+    margin-top:32px;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:14px;
+    padding:18px 18px;
+  }
+  .callout-title{
+    font-size:15px;
+    font-weight:700;
+    margin:0 0 6px;
+  }
+  .callout p{
+    margin:0 0 12px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.6;
+  }
+  .callout p:last-child{margin-bottom:0;}
+  .rule{
+    font-size:13px;
+    color:var(--ink);
+    background:var(--accent-soft);
+    border-radius:8px;
+    padding:8px 12px;
+    display:inline-block;
+  }
+
+  .divider{
+    height:1px;
+    background:var(--line);
+    margin:32px 0;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="hero">
+    <div class="eyebrow-line"></div>
+    <h1>관리자 초대 가이드</h1>
+    <p>공간의 관리자를 새로 초대하거나, 초대받은 분이 앱에서 수락하는 방법을 안내합니다.</p>
+  </header>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="inviter">초대하는 사람</button>
+    <button class="tab-btn" data-tab="invitee">초대받는 사람</button>
+  </div>
+
+  <!-- INVITER TAB -->
+  <div class="panel active" id="panel-inviter">
+    <p class="section-label">관리자 초대 방법</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">권한 관리 선택</div>
+        <p class="step-desc">공간 홈 화면에서 <b>권한 관리</b>를 눌러주세요.</p>
+        <div class="shot"><img src="invite-step1-select-permission.jpg" alt="권한 관리 선택 화면"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">초대 목록에서 관리자 초대 선택</div>
+        <p class="step-desc">아직 초대한 내역이 없다면 화면 하단 <b>+ 관리자 초대</b> 버튼을 눌러주세요.</p>
+        <div class="shot"><img src="invite-step2-tap-invite.jpg" alt="관리자 초대 버튼 선택 화면"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">성함, 연락처 입력 후 초대 링크 발송</div>
+        <p class="step-desc">초대할 분의 이름과 휴대전화 번호를 입력하고, 레벨을 선택한 뒤 <b>초대 링크 발송</b>을 눌러주세요. 입력한 번호로 초대 링크가 담긴 문자가 전송됩니다.</p>
+        <div class="shot"><img src="invite-step3-enter-info.jpg" alt="이름, 연락처 입력 화면"></div>
+        <div class="note" style="background:var(--senior-soft)">
+          <div class="note-title"><span class="badge senior">시니어</span>마스터와 동일한 기능 사용 가능</div>
+        </div>
+        <div class="note" style="background:var(--junior-soft)">
+          <div class="note-title"><span class="badge junior">주니어</span>제어 및 모니터링만 가능</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p class="section-label">관리자 관리 방법</p>
+    <div class="callout" style="border-left-color:var(--ink)">
+      <div class="callout-title">내보내기로 퇴사자 관리하기</div>
+      <p>관리자 목록에서 <b>내보내기</b> 버튼을 누르면 퇴사한 관리자를 내보낼 수 있습니다.</p>
+      <span class="rule">본인보다 하위 권한의 계정만 내보낼 수 있어요</span>
+    </div>
+    <div class="shot" style="margin-top:14px;"><img src="manage-remove-admin.jpg" alt="관리자 내보내기 화면"></div>
+  </div>
+
+  <!-- INVITEE TAB -->
+  <div class="panel" id="panel-invitee">
+    <p class="section-label">초대 수락 방법</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-title">리프 앱 다운로드</div>
+        <p class="step-desc">앱이 설치되어 있지 않다면 문자 속 안내에 따라 앱스토어 또는 구글 플레이 스토어에서 리프 앱을 먼저 설치해주세요.</p>
+        <ul class="dl-links">
+          <li>iOS 사용자: <a href="https://link24.kr/A46NQa8" target="_blank" rel="noopener">https://link24.kr/A46NQa8</a></li>
+          <li>Android 사용자: <a href="https://link24.kr/YfSSXa" target="_blank" rel="noopener">https://link24.kr/YfSSXa</a></li>
+        </ul>
+        <div class="shot"><img src="accept-step1-download-app.png" alt="리프 앱 다운로드 QR 코드"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-title">회원가입 후 로그인</div>
+        <p class="step-desc">리프 회원이 아니라면 먼저 회원가입을 진행해주세요. 2가지 방법으로 시작할 수 있습니다.<br>
+          1. 리프 계정으로 시작하기를 눌러 회원가입 진행<br>
+          2. SNS 계정으로 간편 로그인
+        </p>
+        <div class="shot"><img src="accept-step2-login.jpg" alt="리프 로그인 화면"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-title">수신한 문자의 링크 선택</div>
+        <p class="step-desc">관리자로 초대되면 <b>[리프] 씨드앤 오피스 ○○○ 관리자 초대</b> 문자가 도착합니다. 문자 속 초대 링크를 눌러주세요.</p>
+        <div class="shot"><img src="accept-step3-sms-link.jpg" alt="초대 문자 메시지 화면"></div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-title">초대 수락 버튼 선택</div>
+        <p class="step-desc">초대 내용과 부여된 권한을 확인한 뒤 <b>초대 수락</b> 버튼을 누르면 관리자 등록이 완료됩니다.</p>
+        <div class="shot"><img src="accept-step4-confirm.jpg" alt="초대 수락 확인 화면"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const buttons = document.querySelectorAll('.tab-btn');
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      buttons.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('panel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
