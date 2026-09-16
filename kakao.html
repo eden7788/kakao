@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>관리자 초대 가이드</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Inter:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --blue:#1E3FFA; --blue-bg:#EEF1FF;
+  --ink:#0B0C0E; --sub:#696B6D; --gray:#8A8D92; --mute:#B4B4B4; --body:#424956;
+  --surf:#F7F9FB; --line:#E7E8EB; --div:#EEEEEE; --bg:#F1F2F5;
+  --amber:#B26A00; --amber-bg:#FFF3DF; --ok:#14AE5C; --ok-bg:#E7F7EF;
+  --kr:'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;
+  --num:'Inter',-apple-system,BlinkMacSystemFont,system-ui,'Apple SD Gothic Neo',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--ink);font-family:var(--kr);letter-spacing:-.02em;
+  -webkit-font-smoothing:antialiased;padding:48px 20px 100px}
+.wrap{max-width:720px;margin:0 auto}
+
+/* ===== 헤더 ===== */
+.hd{text-align:center;margin-bottom:28px}
+.hd h1{font-size:26px;font-weight:900;letter-spacing:-.03em}
+.hd p{margin-top:10px;font-size:14.5px;color:var(--sub);line-height:1.6}
+
+/* ===== 탭 ===== */
+.tabs{display:flex;gap:8px;background:#E4E6EB;border-radius:14px;padding:5px;margin-bottom:32px;
+  position:sticky;top:16px;z-index:10;box-shadow:0 4px 16px rgba(20,24,35,.06)}
+.tab{flex:1;text-align:center;padding:12px 0;border-radius:10px;font-size:14.5px;font-weight:700;
+  color:var(--sub);cursor:pointer;transition:.15s;border:0;background:transparent;font-family:inherit}
+.tab.on{background:#fff;color:var(--blue);box-shadow:0 2px 8px rgba(20,24,35,.08)}
+
+/* ===== 섹션/스텝 ===== */
+.pane{display:none}
+.pane.on{display:block}
+.section-title{font-size:13px;font-weight:700;color:var(--blue);letter-spacing:.02em;
+  margin:36px 0 18px;display:flex;align-items:center;gap:8px}
+.section-title::before{content:"";width:4px;height:14px;background:var(--blue);border-radius:2px}
+.section-title:first-child{margin-top:0}
+
+.step{display:flex;gap:16px;padding:22px 0;border-bottom:1px solid var(--div)}
+.step:last-child{border-bottom:0}
+.num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:var(--num);font-weight:700;font-size:14px}
+.step-body{flex:1;min-width:0}
+.step-body h3{font-size:16.5px;font-weight:700;margin-bottom:6px;letter-spacing:-.02em}
+.step-body p{font-size:13.5px;color:var(--body);line-height:1.65}
+.step-body p b{color:var(--ink);font-weight:700}
+
+/* ===== 실기기 프레임 ===== */
+.device{margin-top:16px;width:220px;max-width:100%;position:relative}
+.device .bezel{background:#1B1C1F;border-radius:34px;padding:8px;box-shadow:0 14px 34px rgba(20,24,35,.28)}
+.device img{display:block;width:100%;border-radius:26px}
+.device .side-btn{position:absolute;left:-3px;top:70px;width:3px;height:34px;background:#1B1C1F;border-radius:2px 0 0 2px}
+
+/* ===== 안내 칩 ===== */
+.chip-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:12.5px;padding:8px 12px;border-radius:9px;line-height:1.5}
+.chip b{font-weight:700}
+.chip.senior{background:var(--blue-bg);color:var(--blue)}
+.chip.junior{background:var(--surf);color:var(--body);border:1px solid var(--line)}
+.chip.note{background:var(--amber-bg);color:var(--amber)}
+
+/* ===== 다운로드 링크 카드 ===== */
+.dl-row{display:flex;gap:10px;margin-top:14px}
+.dl{flex:1;text-align:center;padding:11px 8px;border:1px solid var(--line);border-radius:11px;
+  font-size:13px;font-weight:600;color:var(--ink);text-decoration:none;background:#fff}
+.dl:hover{border-color:var(--blue);color:var(--blue)}
+
+/* ===== 서브 카드(관리자 관리 등) ===== */
+.card{background:#fff;border:1px solid var(--div);border-radius:16px;padding:22px;margin-top:14px;
+  display:flex;gap:16px}
+.card .step-body h3{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hd">
+    <h1>관리자 초대 가이드</h1>
+    <p>공간의 관리자를 새로 초대하거나, 초대받은 분이 앱에서 수락하는 방법을 안내합니다.</p>
+  </div>
+
+  <div class="tabs">
+    <button class="tab on" data-t="invite">초대하는 사람</button>
+    <button class="tab" data-t="accept">초대받는 사람</button>
+  </div>
+
+  <!-- ===== 초대하는 사람 ===== -->
+  <div class="pane on" id="invite">
+    <div class="section-title">관리자 초대 방법</div>
+
+    <div class="step">
+      <div class="num">1</div>
+      <div class="step-body">
+        <h3>권한 관리 선택</h3>
+        <p>공간 홈 화면에서 <b>권한 관리</b>를 눌러주세요.</p>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/invite-step1-select-permission.jpg" alt="권한 관리 선택 화면"></div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div class="step-body">
+        <h3>초대 목록에서 관리자 초대 선택</h3>
+        <p>아직 초대한 내역이 없다면 화면 하단 <b>+ 관리자 초대</b> 버튼을 눌러주세요.</p>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/invite-step2-tap-invite.jpg" alt="관리자 초대 버튼 선택 화면"></div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div class="step-body">
+        <h3>성함, 연락처 입력 후 초대 링크 발송</h3>
+        <p>초대할 분의 이름과 휴대전화 번호를 입력하고, 레벨을 선택한 뒤 <b>초대 링크 발송</b>을 눌러주세요. 입력한 번호로 초대 링크가 담긴 문자가 전송됩니다.</p>
+        <div class="chip-row">
+          <div class="chip senior"><b>시니어</b> — 마스터와 동일한 기능 사용 가능</div>
+          <div class="chip junior"><b>주니어</b> — 제어 및 모니터링만 가능</div>
+        </div>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/invite-step3-enter-info.jpg" alt="이름, 연락처 입력 화면"></div></div>
+      </div>
+    </div>
+
+    <div class="section-title">관리자 관리 방법</div>
+    <div class="card">
+      <div class="num" style="background:var(--ink)">!</div>
+      <div class="step-body">
+        <h3>내보내기로 퇴사자 관리하기</h3>
+        <p>관리자 목록에서 <b>내보내기</b> 버튼을 누르면 퇴사한 관리자를 내보낼 수 있습니다.</p>
+        <div class="chip-row"><div class="chip note">본인보다 하위 권한의 계정만 내보낼 수 있어요</div></div>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/manage-remove-admin.jpg" alt="관리자 내보내기 화면"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 초대받는 사람 ===== -->
+  <div class="pane" id="accept">
+    <div class="section-title">초대 수락 방법</div>
+
+    <div class="step">
+      <div class="num">1</div>
+      <div class="step-body">
+        <h3>리프 앱 다운로드</h3>
+        <p>앱이 설치되어 있지 않다면 문자 속 안내에 따라 앱스토어 또는 구글 플레이 스토어에서 리프 앱을 먼저 설치해주세요.</p>
+        <div class="dl-row">
+          <a class="dl" href="https://link24.kr/A46NQa8" target="_blank">iOS 사용자</a>
+          <a class="dl" href="https://link24.kr/YfSSXa" target="_blank">Android 사용자</a>
+        </div>
+        <div class="chip-row"><div class="chip note">버튼을 누르면 앱스토어 또는 구글 플레이 스토어로 바로 연결됩니다</div></div>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/accept-step1-download-app.png" alt="리프 앱 다운로드 QR 코드"></div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">2</div>
+      <div class="step-body">
+        <h3>회원가입 후 로그인</h3>
+        <p>리프 회원이 아니라면 먼저 회원가입을 진행해주세요.<br>1. 리프 계정으로 시작하기를 눌러 회원가입 진행<br>2. SNS 계정으로 간편 로그인</p>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/accept-step2-login.jpg" alt="리프 로그인 화면"></div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">3</div>
+      <div class="step-body">
+        <h3>수신한 문자의 링크 선택</h3>
+        <p>관리자로 초대되면 <b>[리프] 씨드앤 오피스 ○○○ 관리자 초대</b> 문자가 도착합니다. 문자 속 초대 링크를 눌러주세요.</p>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/accept-step3-sms-link.jpg" alt="초대 문자 메시지 화면"></div></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="num">4</div>
+      <div class="step-body">
+        <h3>초대 수락 버튼 선택</h3>
+        <p>초대 내용과 부여된 권한을 확인한 뒤 <b>초대 수락</b> 버튼을 누르면 관리자 등록이 완료됩니다.</p>
+        <div class="device"><div class="bezel"><img src="https://eden7788.github.io/kakao/accept-step4-confirm.jpg" alt="초대 수락 확인 화면"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+document.querySelectorAll('.tab').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+    document.querySelectorAll('.pane').forEach(p=>p.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById(btn.dataset.t).classList.add('on');
+  });
+});
+</script>
+</body>
+</html>
